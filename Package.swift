@@ -7,7 +7,7 @@ let package = Package(
   name: "MemoizeMacro",
   platforms: [
     .iOS(.v13),
-    .macOS(.v10_15),
+    .macOS(.v12),
     .tvOS(.v13),
     .watchOS(.v6),
   ],
@@ -32,7 +32,8 @@ let package = Package(
     .testTarget(
       name: "MemoizeMacroTests",
       dependencies: [
-        "MemoizeMacro"
+        "MemoizeMacro",
+        .product(name: "SwiftSyntaxMacrosTestSupport", package: "swift-syntax"),
       ]
     ),
   ]
