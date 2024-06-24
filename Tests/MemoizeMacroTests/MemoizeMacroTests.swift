@@ -65,5 +65,36 @@ final class MemoizeMacroTests: XCTestCase {
               macros: macros
     )
   }
+  
+  func testMemoizeMacroOnFunctionWithComplexReturnType() {
+    assertMacroExpansion(
+              """
+              @Memoize
+              func fetchUserData(id: Int) -> (name: String, age: Int, emails: [String]) {
+                  // Simulating a complex operation
+                  return ("User\\(id)", id * 2, ["user\\(id)@example.com"])
+              }
+              """,
+              expandedSource: """
+              func fetchUserData(id: Int) -> (name: String, age: Int, emails: [String]) {
+                  // Simulating a complex operation
+                  return ("User\\(id)", id * 2, ["user\\(id)@example.com"])
+              }
+              
+              private var memoizefetchUserDataCache: [String: (name: String, age: Int, emails: [String])] = [:]
+              
+              func memoizedFetchUserData(id: Int) -> (name: String, age: Int, emails: [String]) {
+                  let cacheKey = "id: \\(id)"
+                  if let cachedResult = memoizefetchUserDataCache[cacheKey] {
+                      return cachedResult
+                  }
+                  let result = fetchUserData(id)
+                  memoizefetchUserDataCache[cacheKey] = result
+                  return result
+              }
+              """,
+              macros: macros
+    )
+  }
 }
 
