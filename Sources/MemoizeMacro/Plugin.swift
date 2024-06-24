@@ -12,6 +12,6 @@ import SwiftSyntaxMacros
 @main
 struct MemoizePlugin: CompilerPlugin {
   let providingMacros: [Macro.Type] = [
-    MemoizeMacro.self
+    Memoize.self
   ]
 }
