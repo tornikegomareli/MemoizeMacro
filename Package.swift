@@ -2,9 +2,10 @@
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
+import CompilerPluginSupport
 
 let package = Package(
-  name: "MemoizeMacro",
+  name: "Memoize",
   platforms: [
     .iOS(.v13),
     .macOS(.v12),
@@ -13,15 +14,18 @@ let package = Package(
   ],
   products: [
     .library(
-      name: "MemoizeMacro",
-      targets: ["MemoizeMacro"]
-    )
+      name: "Memoize",
+      targets: [
+        "Memoize"
+      ]
+    ),
+    .executable(name: "MemoizeMacroClient", targets: ["MemoizeMacroClient"])
   ],
   dependencies: [
     .package(url: "https://github.com/apple/swift-syntax", "509.0.0"..<"601.0.0")
   ],
   targets: [
-    .target(
+    .macro(
       name: "MemoizeMacro",
       dependencies: [
         .product(name: "SwiftSyntax", package: "swift-syntax"),
@@ -29,12 +33,24 @@ let package = Package(
         .product(name: "SwiftCompilerPlugin", package: "swift-syntax"),
       ]
     ),
+    .target(
+      name: "Memoize",
+      dependencies: [
+        "MemoizeMacro"
+      ]
+    ),
+    .executableTarget(
+      name: "MemoizeMacroClient",
+      dependencies: [
+        "Memoize"
+      ]
+    ),
     .testTarget(
-      name: "MemoizeMacroTests",
+      name: "MacroTests",
       dependencies: [
         "MemoizeMacro",
         .product(name: "SwiftSyntaxMacrosTestSupport", package: "swift-syntax"),
       ]
-    ),
+    )
   ]
 )
