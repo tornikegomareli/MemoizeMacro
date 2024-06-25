@@ -27,7 +27,7 @@ public struct Memoize: PeerMacro {
       if let secondName = param.secondName?.text {
         return "\(firstName): \(secondName)"
       } else {
-        return firstName
+        return "\(firstName): \(firstName)"
       }
     }.joined(separator: ", ")
     
