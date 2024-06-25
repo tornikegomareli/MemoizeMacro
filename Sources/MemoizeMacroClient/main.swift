@@ -10,8 +10,9 @@ import Memoize
 
 class MemoizeClass {
   @Memoize
-  func test(numberOne: Int, numberTwo: Int) {
-    
+  func test(numberOne: Int, numberTwo: Int) -> Int {
+    print("Calculating...")
+    Thread.sleep(forTimeInterval: 1)
+    return numberOne + numberTwo
   }
 }
-
