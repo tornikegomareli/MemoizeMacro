@@ -7,5 +7,5 @@
 
 import Foundation
 
-@attached(peer, names: overloaded)
+@attached(peer, names: arbitrary)
 public macro Memoize() = #externalMacro(module: "MemoizeMacro", type: "Memoize")
