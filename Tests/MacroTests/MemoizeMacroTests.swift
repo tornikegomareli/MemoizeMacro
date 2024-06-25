@@ -36,7 +36,7 @@ final class MacroTests: XCTestCase {
               if let cachedResult = memoizeaddCache[cacheKey] {
                   return cachedResult
               }
-              let result = add(a, b)
+              let result = add(a: a, b: b)
               memoizeaddCache[cacheKey] = result
               return result
           }
@@ -96,7 +96,7 @@ final class MacroTests: XCTestCase {
                   if let cachedResult = memoizefetchUserDataCache[cacheKey] {
                       return cachedResult
                   }
-                  let result = fetchUserData(id)
+                  let result = fetchUserData(id: id)
                   memoizefetchUserDataCache[cacheKey] = result
                   return result
               }
@@ -125,7 +125,7 @@ final class MacroTests: XCTestCase {
                   if let cachedResult = memoizeprocessUserCache[cacheKey] {
                       return cachedResult
                   }
-                  let result = processUser(id, name, isActive)
+                  let result = processUser(id: id, name: name, isActive: isActive)
                   memoizeprocessUserCache[cacheKey] = result
                   return result
               }
